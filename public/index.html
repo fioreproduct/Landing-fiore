@@ -1189,8 +1189,7 @@ footer .avail{white-space:normal;min-width:0}
   (function () {
     var el = document.getElementById("intro"); if (!el) return;
     var root = document.documentElement, done = false;
-    var seen = false;
-    try { seen = sessionStorage.getItem("introSeen") === "1"; } catch (e) {}
+    var seen = false; // l'intro si vede a ogni apertura della pagina
     var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     function remove() { if (el.parentNode) el.parentNode.removeChild(el); root.classList.remove("introing"); }
     if (seen || reduce || !el.animate) { remove(); return; }
@@ -1201,7 +1200,6 @@ footer .avail{white-space:normal;min-width:0}
     function keep(a) { a.finished && a.finished.then(function () { try { a.commitStyles(); } catch (e) {} }); return a; }
     function end() {
       if (done) return; done = true;
-      try { sessionStorage.setItem("introSeen", "1"); } catch (e) {}
       remove(); window.scrollTo(0, 0); buildHero();
     }
     // 1) la barra compare
